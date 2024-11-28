@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on CTFs by illumn`</title>
-    <link>https://example.org/categories/</link>
-    <description>Recent content in Categories on CTFs by illumn`</description>
+    <title>CTFs by illumn`</title>
+    <link>https://example.org/en/</link>
+    <description>Recent content on CTFs by illumn`</description>
     <generator>Hugo</generator>
-    <language>fr</language>
+    <language>en</language>
     <managingEditor>antonethan2014@gmail.com (Anton ADAM)</managingEditor>
     <webMaster>antonethan2014@gmail.com (Anton ADAM)</webMaster>
     <copyright>Copyright © 2024, Anton ADAM; all rights reserved.</copyright>
-    <atom:link href="https://example.org/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/en/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

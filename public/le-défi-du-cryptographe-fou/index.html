@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="Salut les codebreakers !
+Je vous partage aujourd&rsquo;hui la résolution d&rsquo;un challenge crypto assez corsé que j&rsquo;ai rencontré lors d&rsquo;un CTF récent. Accrochez-vous, ça va chiffrer !
+Le challenge Le défi consistait à décrypter un message chiffré avec un algorithme inconnu. On nous fournissait le message chiffré et un fichier Python contenant une partie du code de l&rsquo;algorithme de chiffrement. Le but était de comprendre le fonctionnement de l&rsquo;algorithme, de le reconstruire et de l&rsquo;inverser pour retrouver le message original.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://localhost:1313/le-d%C3%A9fi-du-cryptographe-fou/" />
+
+
+    <title>
+        
+            Le défi du Cryptographe Fou :: CTFs by illumn` 
+        
+    </title>
+
+
+
+
+
+  <link rel="stylesheet" href="/main.min.244183cde1a38e0b08f82c11791181288f9aac1cc9618cd6f4e9e7710c5768ba.css" integrity="sha256-JEGDzeGjjgsI&#43;CwReRGBKI&#43;arBzJYYzW9OnncQxXaLo=" crossorigin="anonymous">
+
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+
+  <meta itemprop="name" content="Le défi du Cryptographe Fou">
+  <meta itemprop="description" content="Salut les codebreakers !
+Je vous partage aujourd’hui la résolution d’un challenge crypto assez corsé que j’ai rencontré lors d’un CTF récent. Accrochez-vous, ça va chiffrer !
+Le challenge Le défi consistait à décrypter un message chiffré avec un algorithme inconnu. On nous fournissait le message chiffré et un fichier Python contenant une partie du code de l’algorithme de chiffrement. Le but était de comprendre le fonctionnement de l’algorithme, de le reconstruire et de l’inverser pour retrouver le message original.">
+  <meta itemprop="datePublished" content="2024-11-28T21:26:46+03:00">
+  <meta itemprop="dateModified" content="2024-11-28T21:26:46+03:00">
+  <meta itemprop="wordCount" content="355">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Le défi du Cryptographe Fou">
+  <meta name="twitter:description" content="Salut les codebreakers !
+Je vous partage aujourd’hui la résolution d’un challenge crypto assez corsé que j’ai rencontré lors d’un CTF récent. Accrochez-vous, ça va chiffrer !
+Le challenge Le défi consistait à décrypter un message chiffré avec un algorithme inconnu. On nous fournissait le message chiffré et un fichier Python contenant une partie du code de l’algorithme de chiffrement. Le but était de comprendre le fonctionnement de l’algorithme, de le reconstruire et de l’inverser pour retrouver le message original.">
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2024-11-28 21:26:46 &#43;0300 &#43;0300" />
+
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                illumn`</span>
+            <span class="logo__cursor" style=
+                  "
+                   background-color:#50C878;
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/cats">Catégories</a></li><li><a href="/tags">Tags</a></li><li><a href="/me">Who am I ?</a></li><li><a href="/writeups">Mes Write-Ups</a></li>
+        <div class="submenu">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">fr</a>
+                <div class="dropdown-content">
+                    
+                        
+                    
+                </div>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                    <ul style="list-style: none; display: flex; gap: 15px;">
+                        <li><a href="/writeups">Mes Write-Ups</a></li>
+                        <li><a href="/cats">Catégories</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/me">Who am I ?</a></li>
+                    </ul>
+                </span>
+
+            <nav class="header__left">
+
+            </nav>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://localhost:1313/le-d%C3%A9fi-du-cryptographe-fou/">Le défi du Cryptographe Fou</a></h2>
+
+            
+            
+            
+
+            <div class="post-content">
+                <p>Salut les codebreakers !</p>
+<p>Je vous partage aujourd&rsquo;hui la résolution d&rsquo;un challenge crypto assez corsé que j&rsquo;ai rencontré lors d&rsquo;un CTF récent. Accrochez-vous, ça va chiffrer !</p>
+<h2 id="le-challenge">Le challenge</h2>
+<p>Le défi consistait à décrypter un message chiffré avec un algorithme inconnu. On nous fournissait le message chiffré et un fichier Python contenant une partie du code de l&rsquo;algorithme de chiffrement.  Le but était de comprendre le fonctionnement de l&rsquo;algorithme, de le reconstruire et de l&rsquo;inverser pour retrouver le message original.</p>
+<h2 id="analyse-du-code">Analyse du code</h2>
+<p>Le fichier Python fourni contenait la fonction suivante :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encrypt</span>(plaintext, key):
+</span></span><span style="display:flex;"><span>  ciphertext <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(plaintext)):
+</span></span><span style="display:flex;"><span>    char <span style="color:#f92672">=</span> plaintext[i]
+</span></span><span style="display:flex;"><span>    key_char <span style="color:#f92672">=</span> key[i <span style="color:#f92672">%</span> len(key)]
+</span></span><span style="display:flex;"><span>    encrypted_char <span style="color:#f92672">=</span> chr((ord(char) <span style="color:#f92672">+</span> ord(key_char))  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>)
+</span></span><span style="display:flex;"><span>    ciphertext <span style="color:#f92672">+=</span> encrypted_char
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> ciphertext
+</span></span></code></pre></div><p>On voit que l&rsquo;algorithme chiffre le message caractère par caractère en additionnant le code ASCII de chaque caractère avec celui d&rsquo;un caractère de la clé.  La clé est utilisée de manière cyclique ( i % len(key) ).  Le résultat est ensuite converti en caractère avec la fonction chr().
+Décryptage</p>
+<p>Pour décrypter le message, il suffit d&rsquo;inverser l&rsquo;opération de chiffrement.  On soustrait le code ASCII du caractère de la clé au code ASCII du caractère chiffré, et on prend le modulo 256 pour rester dans la plage des caractères ASCII.</p>
+<p>Le hic, c&rsquo;est qu&rsquo;on ne connaît pas la clé !  Il faut donc la trouver.  Heureusement, on dispose d&rsquo;un indice : <code>le message chiffré commence par la chaîne &quot;FLAG{&quot;</code>.  On peut donc supposer que le message original commence par la même chaîne.</p>
+<p>En utilisant cette information, on peut écrire un script Python pour bruteforcer la clé :
+Python</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(ciphertext, key):
+</span></span><span style="display:flex;"><span>  plaintext <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(ciphertext)):
+</span></span><span style="display:flex;"><span>    char <span style="color:#f92672">=</span> ciphertext[i]
+</span></span><span style="display:flex;"><span>    key_char <span style="color:#f92672">=</span> key[i <span style="color:#f92672">%</span> len(key)]
+</span></span><span style="display:flex;"><span>    decrypted_char <span style="color:#f92672">=</span> chr((ord(char) <span style="color:#f92672">-</span> ord(key_char))  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>)
+</span></span><span style="display:flex;"><span>    plaintext <span style="color:#f92672">+=</span> decrypted_char
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> plaintext
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ciphertext <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;votre_message_chiffré_ici&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):  <span style="color:#75715e"># On teste toutes les clés de longueur 1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> chr(i) <span style="color:#f92672">+</span> chr(j)
+</span></span><span style="display:flex;"><span>    plaintext <span style="color:#f92672">=</span> decrypt(ciphertext, key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> plaintext<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;FLAG{&#34;</span>):
+</span></span><span style="display:flex;"><span>      print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Clé trouvée : </span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>      print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Message décrypté : </span><span style="color:#e6db74">{</span>plaintext<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>
+</span></span></code></pre></div><p>Après quelques secondes d&rsquo;exécution, le script trouve la clé et affiche le message décrypté.  Victoire !</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+            
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.e89fda0f29b95d33f6f4224dd9e5cf69d84aff3818be2b0d73e731689cc374261b016d17d46f8381962fb4a1577ba3017b1f23509d894f6e66431f988c00889e.js" integrity="sha512-6J/aDym5XTP29CJN2eXPadhK/zgYvisNc&#43;cxaJzDdCYbAW0X1G&#43;DgZYvtKFXe6MBex8jUJ2JT25mQx&#43;YjACIng=="></script>
+
+
+
+
+    </body>
+</html>

@@ -1,10 +1,97 @@
 baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+languageCode = 'fr'
+title = 'CTFs by illumn`'
 theme = "hello-friend-ng"
+DefaultContentLanguage = "fr"
+author = "Anton ADAM"
+copyright = "Copyright © 2024, Anton ADAM; all rights reserved."
 
 [module]
   [[module.mounts]]
     source = 'C:/Users/Anton/Documents/Obsidian Vault/CTFBlog'
     target = 'content'
     
+
+[params]
+    themeStyle = "auto"
+
+    #favicon = "favicon.ico"
+
+    showmenu = true
+    showRSSButton = true
+    EnableGlobalLanguageMenu = true
+    IsMultilingual = true
+    DefaultContentLanguageInSubdir = true
+  [params.Logo]
+    logoCursorColor = "#50C878"
+  [params.author]
+    name = "Anton ADAM"
+    email = "antonethan2014@gmail.com"
+
+
+[[params.social]]
+  name = "github"
+  url = "https://github.com/aent0n"
+[[params.social]]
+  name = "linkedin"
+  url = "https://www.linkedin.com/in/anton-adam/"
+[[params.social]]
+  name = "email"
+  url = "mailto:antonethan2014@gmail.com"
+
+
+[languages]
+  [languages.fr]
+    languageCode = "fr"
+    languageName = "Français"
+    weight = 1
+    [languages.fr.params]
+      homeSubtitle = "Bienvenue sur mon blog CTF! C'est ici que je rédige tous mes write-ups ;)"
+      postTitle = "Articles récents"
+      postSeeMore = "Voir tous les articles"
+      postLeft = "Nombre total d'articles :"
+      [[languages.fr.menu.main]]
+        name = "Mes Write-Ups"
+        identifier = "writeups"
+        url = "/writeups"
+        weight = 1
+      [[languages.fr.menu.main]]
+        name = "Catégories"
+        url = "/cats"
+        weight = 2
+      [[languages.fr.menu.main]]
+        name = "Tags"
+        url = "/tags"
+        weight = 3
+      [[languages.fr.menu.main]]
+        name = "Who am I ?"
+        url = "/me"
+        weight = 4
+
+  [languages.en]
+    languageCode = "en"
+    languageName = "English"
+    weight = 2
+    [languages.en.params]
+      homeSubtitle = "Welcome to my CTF blog! This is where I write all my write-ups ;)"
+      postTitle = "Recent Posts"
+      postSeeMore = "See all posts"
+      postLeft = "Total number of posts :"
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        name = "My Write-Ups"
+        identifier = "writeups"
+        url = "/writeups"
+        weight = 1
+      [[languages.en.menu.main]]
+        name = "Categories"
+        url = "/cats"
+        weight = 2
+      [[languages.en.menu.main]]
+        name = "Tags"
+        url = "/tags"
+        weight = 3
+      [[languages.en.menu.main]]
+        name = "Who am I ?"
+        url = "/me"
+        weight = 4
